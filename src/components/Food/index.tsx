@@ -24,6 +24,7 @@ const Food: React.FC<IProps> = ({
   handleDelete,
   handleEditFood,
 }: IProps) => {
+  // eslint-disable-next-line
   const [isAvailable, setIsAvailable] = useState(food.available);
 
   async function toggleAvailable(): Promise<void> {
