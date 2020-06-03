@@ -21,7 +21,6 @@ interface IFoodPlate {
 
 const Dashboard: React.FC = () => {
   const [foods, setFoods] = useState<IFoodPlate[]>([]);
-  // eslint-disable-next-line
   const [editingFood, setEditingFood] = useState<IFoodPlate>({} as IFoodPlate);
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -34,7 +33,7 @@ const Dashboard: React.FC = () => {
     }
 
     loadFoods();
-  }, [setFoods]);
+  }, [setFoods, setEditingFood]);
 
   async function handleAddFood(
     food: Omit<IFoodPlate, 'id' | 'available'>,
@@ -60,14 +59,29 @@ const Dashboard: React.FC = () => {
     food: Omit<IFoodPlate, 'id' | 'available'>,
   ): Promise<void> {
     try {
-      console.log(food);
+      api
+        .put(`/foods/${editingFood.id}`, {
+          name: food.name,
+          image: food.image,
+          price: food.price,
+          description: food.description,
+          available: editingFood.available,
+          id: editingFood.id,
+        })
+        .then(response => {
+          const foodToUpdate = response.data;
+          const updatedFoods = foods.map(foodCompare =>
+            foodCompare.id === foodToUpdate.id ? foodToUpdate : foodCompare,
+          );
+          setFoods(updatedFoods);
+        });
     } catch (err) {
       console.log(err);
     }
   }
 
   async function handleDeleteFood(id: number): Promise<void> {
-    api.delete(`/foods/${id}`).then(response => {
+    api.delete(`/foods/${id}`).then(() => {
       const updatedFoods = foods.filter(food => food.id !== id);
       setFoods(updatedFoods);
     });
@@ -104,6 +118,7 @@ const Dashboard: React.FC = () => {
         {foods &&
           foods.map(food => (
             <Food
+              openModal={toggleEditModal}
               key={food.id}
               food={food}
               handleDelete={handleDeleteFood}

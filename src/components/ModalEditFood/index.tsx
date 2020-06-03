@@ -40,6 +40,7 @@ const ModalEditFood: React.FC<IModalProps> = ({
 
   const handleSubmit = useCallback(
     async (data: IEditFoodData) => {
+      setIsOpen();
       try {
         formRef.current?.setErrors({});
 
@@ -55,7 +56,6 @@ const ModalEditFood: React.FC<IModalProps> = ({
         });
 
         handleUpdateFood(data);
-        setIsOpen();
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           formRef.current?.setErrors(err);
