@@ -97,6 +97,14 @@ const Dashboard: React.FC = () => {
 
   function handleEditFood(food: IFoodPlate): void {
     setEditingFood(food);
+    foods.map(foodCompare => {
+      if (
+        foodCompare.id === food.id &&
+        foodCompare.available !== food.available
+      ) {
+        handleUpdateFood(food);
+      }
+    });
   }
 
   return (

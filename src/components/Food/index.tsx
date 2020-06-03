@@ -29,11 +29,9 @@ const Food: React.FC<IProps> = ({
   const [isAvailable, setIsAvailable] = useState(food.available);
 
   async function toggleAvailable(): Promise<void> {
-    if (food.available) {
-      setIsAvailable(false);
-    } else {
-      setIsAvailable(true);
-    }
+    setIsAvailable(!food.available);
+    food.available = !food.available; // eslint-disable-line no-param-reassign
+
     handleEditFood(food);
   }
 
