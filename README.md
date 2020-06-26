@@ -1,11 +1,14 @@
 # Sobre o desafio
-Desenvolvimento da aplicação GoRestaurant, praticando o conceito de CRUD (Create, Read, Update, Delete). 
+Desenvolvimento da aplicação GoRestaurant, praticando o conceito de CRUD (Create, Read, Update, Delete).
 Essa será uma aplicação que irá se conectar a uma fake API, e exibir os pratos de comida criados e permitir a criação, remoção e atualização desses pratos.
 
+<img src="src/assets/example1.png" width=400>
+<img src="src/assets/example2.png" width=400>
+<img src="src/assets/example3.png" width=400>
 
 
 ## Utilizando uma fake API
-Nesse desafio foi usado os dados de uma fake API, para roda-la é necessário executar o comando: 
+Nesse desafio foi usado os dados de uma fake API, para roda-la é necessário executar o comando:
 ```js
   yarn json-server server.json -p 3333
 ```
